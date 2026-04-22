@@ -17,6 +17,7 @@ import {
   Star,
   Menu,
 } from "lucide-react";
+import { API_ENDPOINTS } from "../api/EndPoints";
 
 const API_URL = `${import.meta.env.VITE_REACT_BACKEND_BASE}/saas`;
 
@@ -144,10 +145,11 @@ export default function LandingPage() {
   const plansRef = useRef(null);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/plans`)
+    axios;
+    api
+      .get(API_ENDPOINTS.PLANS)
       .then((r) => setPlans(r.data))
-      .catch(() => toast.error("Plans load nahi hue, refresh karein"))
+      .catch(() => toast.error("Plans not load ,Please refresh "))
       .finally(() => setPlansLoading(false));
   }, []);
 

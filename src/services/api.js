@@ -39,6 +39,7 @@ export const extendTenantPlan = (id, months) =>
 export const deleteTenant = (id) => API.delete(`/tenants/${id}`);
 
 // Plans
-export const getPlans = () => API.get("/plans");
-export const updatePlan = (id, data) => API.put(`/plans/${id}`, data);
-export const seedPlans = () => API.post("/plans/seed");
+export const getPlans = () => API.get(API_ENDPOINTS.PLANS);
+export const updatePlan = (id, data) =>
+  API.put(API_ENDPOINTS.PLAN_BY_ID(id), data);
+export const seedPlans = () => API.post(API_ENDPOINTS.SEED_PLANS);
