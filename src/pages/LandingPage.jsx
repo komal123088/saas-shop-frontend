@@ -17,6 +17,7 @@ import {
   Star,
   Menu,
 } from "lucide-react";
+import api from "../api/api";
 import { API_ENDPOINTS } from "../api/EndPoints";
 
 // const API_URL = `${import.meta.env.VITE_REACT_BACKEND_BASE}/saas`;
@@ -145,11 +146,10 @@ export default function LandingPage() {
   const plansRef = useRef(null);
 
   useEffect(() => {
-    axios;
     api
       .get(API_ENDPOINTS.PLANS)
       .then((r) => setPlans(r.data))
-      .catch(() => toast.error("Plans not load ,Please refresh "))
+      .catch(() => toast.error("Plans not load, Please refresh"))
       .finally(() => setPlansLoading(false));
   }, []);
 
@@ -176,7 +176,7 @@ export default function LandingPage() {
       return toast.error("Please fill all fields");
     setSubmitting(true);
     try {
-      await axios.post(`${API_URL}/registrations/register`, {
+      await api.post(API_ENDPOINTS.SAAS_REGISTER, {
         ...form,
         planId: selectedPlan._id,
       });

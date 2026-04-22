@@ -36,6 +36,7 @@ export const API_ENDPOINTS = {
   INVENTORY_STATS: "/inventory/stats",
   INVENTORY_PAYMENT: (id) => `/inventory/${id}/payment`,
   INVENTORY_DELETE: (id) => `/inventory/${id}`,
+  SAAS_REGISTER: "/saas/registrations/register",
   PLANS: "/saas/plans",
   PLAN_BY_ID: (id) => `/saas/plans/${id}`,
   SEED_PLANS: "/saas/plans/seed",
