@@ -1,8 +1,21 @@
 import axios from "axios";
 
-const API_URL =
-  import.meta.env.VITE_REACT_BACKEND_BASE || "http://127.0.0.1:3000/api";
+const getBackendURL = () => {
+  // Production (Vercel) - environment variable set hai
+  if (import.meta.env.VITE_REACT_BACKEND_BASE) {
+    return import.meta.env.VITE_REACT_BACKEND_BASE;
+  }
 
+  // Local development - hostname se detect karo
+  const host = window.location.hostname;
+  if (host !== "localhost" && host !== "127.0.0.1") {
+    return `http://${host}:3000/api`; // LAN/mobile access
+  }
+
+  return "http://127.0.0.1:3000/api"; // localhost
+};
+
+const API_URL = getBackendURL();
 console.log("🌍 API Base URL:", API_URL);
 
 const api = axios.create({
