@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { API_ENDPOINTS } from "../api/EndPoints";
 
-const API_URL = `${import.meta.env.VITE_REACT_BACKEND_BASE}/saas`;
+// const API_URL = `${import.meta.env.VITE_REACT_BACKEND_BASE}/saas`;
 
 const PLAN_META = {
   normal: {
