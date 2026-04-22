@@ -1,35 +1,8 @@
 import axios from "axios";
 
-// Get the current hostname (IP or localhost)
-const getCurrentHost = () => {
-  return window.location.hostname;
-};
+const API_URL =
+  import.meta.env.VITE_REACT_BACKEND_BASE || "http://127.0.0.1:3000/api";
 
-// Detect if running inside Electron
-const isElectron = window.location.protocol === "file:";
-
-const getBackendURL = () => {
-  const currentHost = getCurrentHost();
-
-  console.log("📍 Current host:", currentHost);
-  console.log("📍 Is Electron:", isElectron);
-
-  if (isElectron) {
-    // Electron desktop app
-    return "http://127.0.0.1:3000/api";
-  }
-
-  // If accessing from another device (mobile)
-  if (currentHost !== "localhost" && currentHost !== "127.0.0.1") {
-    console.log("📱 Mobile/LAN access detected");
-    return `http://${currentHost}:3000/api`;
-  }
-
-  // Local development
-  return "http://127.0.0.1:3000/api";
-};
-
-const API_URL = getBackendURL();
 console.log("🌍 API Base URL:", API_URL);
 
 const api = axios.create({
@@ -40,7 +13,7 @@ const api = axios.create({
   },
 });
 
-// Add request interceptor
+// Request interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -56,7 +29,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Add response interceptor
+// Response interceptor
 api.interceptors.response.use(
   (response) => {
     console.log(`✅ ${response.status} from ${response.config.url}`);
@@ -69,9 +42,6 @@ api.interceptors.response.use(
       console.error(`❌ ${error.response.status}:`, error.response.data);
     } else if (error.request) {
       console.error("❌ No response - backend may not be accessible");
-      console.error(
-        "   Check if backend is running and firewall allows port 3000",
-      );
     } else {
       console.error("❌ Error:", error.message);
     }
